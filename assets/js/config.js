@@ -3,7 +3,7 @@ window.PORTAL_CONFIG=Object.freeze({
  portalCode:'testing_customer',
  label:'screenings4u Testing Customer',
  supabaseUrl:'https://elpbnytpciqnbexiaebp.supabase.co',
- supabaseKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6ImVscGJueXRwY2lxbmJleGlhZWJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAyOTYwMzQsImV4cCI6MjEwNTg3MjAzNH0.kWzPDxpdeorkJJpP6pvt4LCP-W9uGGVAgcQVVheVuE8',
+ supabaseKey:'sb_publishable_xVI6Mjkk1bNVMGHZCPuK6w_8FSHKdkC',
  pages:[
   {id:'dashboard',label:'Dashboard',icon:'⌂'},
   {id:'orders',label:'My Orders',icon:'▤'},
