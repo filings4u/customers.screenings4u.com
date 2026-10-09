@@ -8,6 +8,7 @@ window.PORTAL_CONFIG=Object.freeze({
   {id:'dashboard',label:'Dashboard',icon:'⌂'},
   {id:'orders',label:'My Orders',icon:'▤'},
   {id:'testing',label:'My Testing',icon:'◆'},
+  {id:'assign-donors',label:'Assign Donors',icon:'♧'},
   {id:'donor-passes',label:'Donor Passes',icon:'▣'},
   {id:'proposals',label:'Proposals',icon:'▦'},
   {id:'results',label:'Results',icon:'✓'},
