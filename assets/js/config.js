@@ -10,7 +10,6 @@ window.PORTAL_CONFIG=Object.freeze({
   {id:'testing',label:'My Testing',icon:'◆'},
   {id:'assign-donors',label:'Assign Donors',icon:'♧'},
   {id:'donor-passes',label:'Donor Passes',icon:'▣'},
-  {id:'proposals',label:'Proposals',icon:'▦'},
   {id:'results',label:'Results',icon:'✓'},
   {id:'documents',label:'Documents',icon:'▧'},
   {id:'profile',label:'My Profile',icon:'◎'},
