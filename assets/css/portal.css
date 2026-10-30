@@ -437,3 +437,24 @@ body[data-portal-page="pools"] .table-wrap .empty{padding:14px 6px!important}
 body[data-portal-page="support"] .content > .hero{display:none!important}
 body[data-portal-page="support"] .cs-support-intro h1{font-size:calc(26px * var(--portal-font-scale));line-height:1.25;margin:8px 0;color:#fff}
 @media(max-width:620px){body[data-portal-page="support"] .cs-support-intro h1{font-size:calc(23px * var(--portal-font-scale))}}
+
+/* Customer testing progress: first dashboard section, status-based and responsive */
+body[data-portal-page="dashboard"] .s4u-workflow-panel{margin-bottom:20px}
+.s4u-workflow-panel .panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.s4u-tracked-list{padding:18px;display:grid;gap:16px}
+.s4u-tracked-test{border:1px solid #dbe4ef;border-radius:13px;padding:18px;background:#fff}
+.s4u-tracked-header{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:16px;color:#18395e}
+.s4u-tracked-header span{color:#61748c}
+.s4u-progress-track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.s4u-progress-step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:10px 4px;color:#66788e;text-decoration:none;min-width:0}
+.s4u-progress-step:not(:last-child):after{content:"";position:absolute;top:25px;left:calc(50% + 24px);width:calc(100% - 37px);height:3px;background:#d7e2ee}
+.s4u-progress-dot{display:grid;place-items:center;height:33px;width:33px;border:2px solid #cad7e6;border-radius:50%;background:white;font-weight:800;z-index:1}
+.s4u-progress-label{font-size:12px;font-weight:800}
+.s4u-progress-step small{font-size:11px}
+.s4u-progress-step.complete .s4u-progress-dot{background:#16764b;color:#fff;border-color:#16764b}
+.s4u-progress-step.complete:after{background:#16764b}
+.s4u-progress-step.current .s4u-progress-dot{background:#173d70;border-color:#173d70;color:#fff;box-shadow:0 0 0 4px #e8f0fb}
+.s4u-progress-step.current .s4u-progress-label{color:#173d70}
+.s4u-progress-step:focus-visible{outline:2px solid #ee6d00;outline-offset:2px;border-radius:8px}
+.s4u-workflow-empty{padding:24px;color:#566a84}
+@media(max-width:680px){.s4u-tracked-list{padding:12px}.s4u-tracked-test{padding:12px}.s4u-progress-track{grid-template-columns:1fr;gap:0}.s4u-progress-step{display:grid;grid-template-columns:34px 1fr auto;text-align:left;align-items:center;gap:12px;padding:9px 4px}.s4u-progress-step:not(:last-child):after{left:20px;top:41px;width:3px;height:calc(100% - 28px)}.s4u-progress-label{font-size:13px}.s4u-progress-step small{font-size:11px}}
