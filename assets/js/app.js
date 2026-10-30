@@ -109,12 +109,13 @@ function bind(){const down=$('#fontDown'),up=$('#fontUp'),reset=$('#fontSizeValu
 async function downloadDoc(id){try{const d=await invoke('document_url',{document_id:id});location.href=d.url}catch(x){notice(x.message)}}async function downloadSharedDoc(id){try{const d=await invoke('shared_document_url',{document_id:id});location.href=d.url}catch(x){notice(x.message)}}
 function showPass(id){
  const p=(W.donor_passes||[]).find(x=>x.id===id);if(!p)return;
- if(!p.ready_for_collection){notice('Your collection site is not assigned yet.');return}
+ if(!p.ready_for_collection){notice('Your donor pass is not ready for collection. Wait for confirmed lab registration and collection instructions.');return}
  const site=p.collection_site||{},appt=p.appointment||{};
  const address=[site.address_line_1,site.address_line_2,site.city,site.state,site.postal_code].filter(Boolean).join(', ')||p.collection_site_address||appt.location_address||'';
- const labNumber=p.metadata?.labcorp_registration_number||null;
+ const labNumber=p.metadata?.labcorp_registration_number||p.confirmation_code||null;
  const siteName=p.collection_site_name||site.name||appt.location_name||null;
  const deadline=p.collection_deadline||appt.end_at||null;
+ const hairTest=/hair/i.test(String(p.specimen_type||p.test_type||''));
  const field=(label,value)=>`<div class="field"><dt>${esc(label)}</dt><dd>${esc(value||'Not provided')}</dd></div>`;
  const body=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Donor Authorization · ${esc(p.donor_pass_number||p.pass_number)}</title>
  <style>
@@ -136,8 +137,8 @@ function showPass(id){
  <section class="section"><h2>Donor Information</h2><dl class="details">${field('Donor Name',p.donor_name)}${field('Testing Authority',p.dot_test?p.dot_agency||'DOT':'Non-DOT')}${field('Testing Reason',p.test_reason)}${field('Order Number',p.order_number||p.metadata?.labcorp_order_number||'—')}</dl></section>
  <section class="section"><h2>Test Authorization</h2><dl class="details">${field('Test / Panel',p.test_type||p.panel_name)}${field('Specimen Type',p.specimen_type)}${field('Panel Reference',p.panel_name)}${field('Complete By',deadline?fmt(deadline):'Not specified')}${field('Appointment',appt.start_at||p.scheduled_at?fmt(appt.start_at||p.scheduled_at):'Not scheduled')}${field('Split Specimen',p.dot_test?'Required (DOT)':p.split_specimen_requested?'Requested':'As ordered')}</dl></section>
  <section class="section"><h2>Collection Site Information</h2><div class="location ${siteName?'':'pending'}">${siteName?`<strong>${esc(siteName)}</strong><p>${esc(address||'Address will be supplied by your testing coordinator.')}</p>${site.phone?`<p>Phone: ${esc(site.phone)}</p>`:''}`:`<strong>Collection site not yet assigned</strong><p>Contact screenings4u before visiting a collection facility. Do not travel without a confirmed location.</p>`}</div></section>
- <section class="section"><h2>Instructions for the Donor</h2><ol class="instructions"><li>Bring a valid government-issued photo identification document.</li><li>Present this authorization and your Labcorp registration number (if shown) to the collection-site staff.</li><li>Arrive within the assigned collection window and follow the collector’s instructions.</li><li>If your site, appointment or authorization changes, check your customer portal for the latest details.</li></ol></section>
- <footer class="footer"><span><strong>screenings4u</strong> · Customer Collection Authorization<br>This document is not a laboratory chain-of-custody form. Additional laboratory paperwork may be required.</span><span>Authorization: ${esc(p.donor_pass_number||p.pass_number)}</span></footer></main></body></html>`;
+ <section class="section"><h2>Instructions for the Donor</h2><ol class="instructions"><li>Bring a valid government-issued photo identification document.</li>${hairTest?'<li>For hair collection, ensure enough hair is available for the specimen.</li>':''}<li>Present this authorization and your Labcorp registration number (if shown) to the collection-site staff.</li><li>Arrive within the assigned collection window and follow the collector’s instructions.</li><li>If your site, appointment or authorization changes, check your customer portal for the latest details.</li></ol></section>
+ <footer class="footer"><span><strong>screenings4u</strong> · Customer Collection Authorization<br>This screenings4u pass is not a laboratory chain-of-custody form. Collection staff must use the laboratory\'s required process. For Labcorp registration, provide the Labcorp registration number shown above.</span><span>Authorization: ${esc(p.donor_pass_number||p.pass_number)}</span></footer></main></body></html>`;
  document.open();document.write(body);document.close();
 }
 async function start(){if(window.S4UCustomerGuard&&!(await window.S4UCustomerGuard.guard()))return;shell();try{const p=page();let html;
