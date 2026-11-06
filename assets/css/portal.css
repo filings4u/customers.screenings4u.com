@@ -458,3 +458,24 @@ body[data-portal-page="dashboard"] .s4u-workflow-panel{margin-bottom:20px}
 .s4u-progress-step:focus-visible{outline:2px solid #ee6d00;outline-offset:2px;border-radius:8px}
 .s4u-workflow-empty{padding:24px;color:#566a84}
 @media(max-width:680px){.s4u-tracked-list{padding:12px}.s4u-tracked-test{padding:12px}.s4u-progress-track{grid-template-columns:1fr;gap:0}.s4u-progress-step{display:grid;grid-template-columns:34px 1fr auto;text-align:left;align-items:center;gap:12px;padding:9px 4px}.s4u-progress-step:not(:last-child):after{left:20px;top:41px;width:3px;height:calc(100% - 28px)}.s4u-progress-label{font-size:13px}.s4u-progress-step small{font-size:11px}}
+
+
+/* Customer result publication center */
+.s4u-results-list{display:grid;gap:18px;padding:20px}
+.s4u-result-card{border:1px solid #dce5f0;border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 3px 14px rgba(18,49,84,.045)}
+.s4u-result-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:23px 24px;border-bottom:1px solid #e7edf5;background:linear-gradient(110deg,#f4f8fd,#fff)}
+.s4u-result-eyebrow{font-size:10px;letter-spacing:1.2px;color:#45648b;font-weight:800}
+.s4u-result-card h3{font-size:21px;line-height:1.3;color:#17365f;margin:8px 0}
+.s4u-result-card-head p{color:#6b7e96;font-size:13px;margin:0}
+.s4u-result-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:20px 24px}
+.s4u-result-fields>div{display:flex;flex-direction:column;gap:7px}
+.s4u-result-fields span{font-size:12px;color:#647a96}
+.s4u-result-fields strong{font-size:14px;color:#183b68;overflow-wrap:anywhere}
+.s4u-result-fields .badge{align-self:flex-start}
+.s4u-result-documents{border-top:1px solid #edf1f7;padding:18px 24px}
+.s4u-result-documents h4{margin:0 0 12px;font-size:14px;color:#17365f}
+.s4u-report-links{display:flex;flex-wrap:wrap;gap:9px}
+.s4u-report-link{white-space:normal;text-align:left}
+.s4u-result-card-footer{display:flex;align-items:center;gap:18px;padding:16px 24px;background:#f6f9fd;border-top:1px solid #e7edf5;flex-wrap:wrap}
+.s4u-result-card-footer span{font-size:12px;color:#657891}
+@media(max-width:720px){.s4u-results-list{padding:12px;gap:14px}.s4u-result-card-head{padding:18px;flex-wrap:wrap}.s4u-result-fields{grid-template-columns:1fr;gap:15px;padding:18px}.s4u-result-documents,.s4u-result-card-footer{padding:16px}.s4u-report-links{display:grid}.s4u-report-links .btn{width:100%}.s4u-result-card-footer .btn{width:100%;text-align:center}}
