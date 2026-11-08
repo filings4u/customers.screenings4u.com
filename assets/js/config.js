@@ -11,6 +11,7 @@ window.PORTAL_CONFIG=Object.freeze({
   {id:'testing-progress',label:'Testing Progress',icon:'◉'},
   {id:'assign-donors',label:'Assign Donors',icon:'♧'},
   {id:'donor-passes',label:'Donor Passes',icon:'▣'},
+  {id:'physicals',label:'Physicals',icon:'✚'},
   {id:'results',label:'Results',icon:'✓'},
   {id:'documents',label:'Documents',icon:'▧'},
   {id:'profile',label:'My Profile',icon:'◎'},
