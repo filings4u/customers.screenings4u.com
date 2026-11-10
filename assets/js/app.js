@@ -226,8 +226,17 @@ async function loadPhysicals(){
 function render(){const p=page();if(p==='order-details')return orderDetailsPage();if(p==='testing-details')return testingDetailsPage();if(p==='testing-area')return testingAreaPage();if(p==='new-support-ticket')return newSupportTicketPage();if(p==='support-ticket')return '<div class="panel">Loading ticket…</div>';if(p==='donor-pass-details')return donorPassDetailsPage();if(p==='dashboard')return dashboard();if(p==='testing-progress')return testingProgress();if(p==='orders')return orders();if(p==='testing')return testing();if(p==='assign-donors')return assignDonorsPage();if(p==='donor-passes')return passes();if(p==='physicals')return physicals();if(p==='results')return results();if(p==='documents')return documents();if(p==='profile')return profile();return '<div class="panel"><div class="empty">Loading support…</div></div>'}
 function bind(){const down=$('#fontDown'),up=$('#fontUp'),reset=$('#fontSizeValue');if(down)down.onclick=()=>{const cur=fontScale(),i=FONT_LEVELS.indexOf(cur);updateFontScale(FONT_LEVELS[Math.max(0,i-1)])};if(up)up.onclick=()=>{const cur=fontScale(),i=FONT_LEVELS.indexOf(cur);updateFontScale(FONT_LEVELS[Math.min(FONT_LEVELS.length-1,i+1)])};if(reset)reset.onclick=()=>updateFontScale(1);updateFontScale(fontScale());$$('[data-doc]').forEach(b=>b.onclick=()=>downloadDoc(b.dataset.doc));$$('[data-shared-doc]').forEach(b=>b.onclick=()=>downloadSharedDoc(b.dataset.sharedDoc));if(page()==='assign-donors')bindAssignDonors();if(page()==='testing')bindTestingFilters();bindDetailForms();const f=$('#profileForm');if(f)f.onsubmit=async e=>{e.preventDefault();try{const v=Object.fromEntries(new FormData(f).entries());const d=await invoke('update_profile',v);W.profile=d.profile;notice('Profile updated.','good')}catch(x){notice(x.message)}};if($('#passwordReset'))$('#passwordReset').onclick=async()=>{const s=await session();const email=s?.user?.email;if(!email)return;const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:`https://${C.domain}/reset-password.html`});notice(error?error.message:'Password reset email sent.',error?'bad':'good')}}
 async function downloadDoc(id){try{const d=await invoke('document_url',{document_id:id});location.href=d.url}catch(x){notice(x.message)}}async function downloadSharedDoc(id){try{const d=await invoke('shared_document_url',{document_id:id});location.href=d.url}catch(x){notice(x.message)}}
-function showPass(id){
+async function showPass(id){
  const p=(W.donor_passes||[]).find(x=>x.id===id);if(!p)return;
+ if(p.metadata?.official_labcorp_pdf_path){
+   if(p.status!=='issued'){notice('This donor pass is not yet issued.');return}
+   try{
+     const data=await invoke('official_labcorp_pass_url',{pass_id:id});
+     if(!data.url)throw Error('Official Labcorp PDF is unavailable.');
+     window.location.assign(data.url);
+   }catch(e){notice(e.message||'Unable to open official Labcorp PDF.')}
+   return;
+ }
  if(!p.ready_for_collection){notice('Your donor pass is not ready for collection. Wait for confirmed lab registration and collection instructions.');return}
  const site=p.collection_site||{},appt=p.appointment||{};
  const address=[site.address_line_1,site.address_line_2,site.city,site.state,site.postal_code].filter(Boolean).join(', ')||p.collection_site_address||appt.location_address||'';
